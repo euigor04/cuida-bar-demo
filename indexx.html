@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuida Bar – painel do dono</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1ee;--cd:#fff;--tx:#14201b;--mu:#5b6862;--bd:#d9dfda;--ac:#0f766e;--as:#d5ece9;--ok:#15803d;--wn:#b45309;--bad:#b91c1c;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101613;--cd:#19211d;--tx:#eaf0ec;--mu:#9aa8a1;--bd:#2a362f;--ac:#3dd6c6;--as:#17352f;--ok:#4ade80;--wn:#fbbf24;--bad:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101613;--cd:#19211d;--tx:#eaf0ec;--mu:#9aa8a1;--bd:#2a362f;--ac:#3dd6c6;--as:#17352f;--ok:#4ade80;--wn:#fbbf24;--bad:#f87171;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 "Bricolage Grotesque",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--cd);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--cd);border-bottom:1px solid var(--bd)}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px 4px;max-width:760px;margin:auto}
+.hd b{font-size:17px;font-weight:800}.hd small{color:var(--mu)}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ok);font-weight:600}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.25}}@media(prefers-reduced-motion:reduce){.live i{animation:none}}
+nav{display:flex;gap:4px;overflow-x:auto;padding:4px 12px 0;max-width:760px;margin:auto}
+nav button{flex:none;border:0;background:none;color:var(--mu);font:600 14px inherit;font-family:inherit;padding:10px 12px;border-bottom:3px solid transparent;cursor:pointer}
+nav button[aria-selected=true]{color:var(--ac);border-color:var(--ac)}
+nav button:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+main{max-width:760px;margin:auto;padding:14px 14px 40px}
+.demo{background:var(--as);color:var(--tx);border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:12px}
+.g .c{margin:0}
+.l{color:var(--mu);font-size:13px}.n{font-size:26px;font-weight:800;line-height:1.15}
+.hero{font-size:44px;font-weight:800;letter-spacing:-1px}
+h2{font-size:15px;margin:0 0 10px;font-weight:800}
+.pb{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:8px 0 4px}.pb i{display:block;height:100%;background:var(--ac)}
+.ch{display:flex;align-items:flex-end;gap:8px;height:120px}.ch div{flex:1;text-align:center;font-size:11px;color:var(--mu);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.ch i{display:block;background:var(--ac);border-radius:4px 4px 0 0;margin-bottom:4px}
+.r{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--bd)}.r:first-of-type{border-top:0}
+.tg{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.wn{background:color-mix(in srgb,var(--wn) 18%,transparent);color:var(--wn)}.bd{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.tip{border-left:4px solid var(--ac);background:var(--as);padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:12px}
+details{border-top:1px solid var(--bd);padding:10px 0}details:first-of-type{border-top:0}
+summary{cursor:pointer;display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.ft{color:var(--mu);font-size:12px;text-align:center;margin-top:20px}
+.w{overflow-x:auto}#ey{background:none;border:0;color:var(--tx);padding:6px;cursor:pointer;display:flex}#ey:focus-visible{outline:2px solid var(--ac);outline-offset:2px}.hid .ch,.hid .pb{filter:blur(5px)}select{width:100%;padding:10px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;background:var(--cd);color:var(--tx);font:inherit}input[type=range]{accent-color:var(--ac)}
+</style></head><body>
+<header><div class="hd"><div><b>Cuida Bar</b><br><small>Sexta-feira, 22h14</small></div><span style="display:flex;align-items:center;gap:10px"><span class="live"><i></i>ao vivo</span><button id="ey" onclick="hide=!hide;show()" aria-label="Mostrar ou ocultar valores"></button></span></div>
+<nav role="tablist" id="nv"></nav></header>
+<main id="v"></main>
+<script>
+let hide=true;const R=n=>hide?'R$ ••••':n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),P=n=>hide?'••%':Math.round(n)+'%';
+const F=[
+{n:'Espeto de carne',p:8,q:120,i:[['Carne bovina (90 g)',2.07],['Tempero e sal',.15],['Carvão (rateio)',.3],['Palito e embalagem',.25]]},
+{n:'Espeto de frango',p:7,q:80,i:[['Frango (100 g)',1.5],['Tempero e sal',.15],['Carvão (rateio)',.3],['Palito e embalagem',.25]]},
+{n:'Queijo coalho',p:8,q:60,i:[['Queijo coalho (70 g)',2.1],['Melaço e orégano',.2],['Carvão (rateio)',.3],['Palito e embalagem',.25]]},
+{n:'Cerveja long neck',p:9,q:150,i:[['Cerveja (unidade)',5.2],['Gelo',.2]]}];
+F.forEach(f=>{f.c=f.i.reduce((a,x)=>a+x[1],0);f.m=(f.p-f.c)/f.p*100});
+const rec=F.reduce((a,f)=>a+f.p*f.q,0),luc=F.reduce((a,f)=>a+(f.p-f.c)*f.q,0),MG=luc/rec*100;
+let S=4280;const H=[180,420,690,980,1100,620,290],HL=['18h','19h','20h','21h','22h','23h','00h'],FIX=1900,META=6000,BE=FIX/(MG/100);
+const tg=m=>`<span class="tg ${m>=55?'ok':m>=45?'wn':'bd'}">${P(m)}</span>`;
+const bars=(a,tot,fmt)=>a.map(x=>`<div style="margin-bottom:10px"><div class="r" style="border:0;padding:0"><span>${x[0]}</span><b>${fmt(x[1])}</b></div><div class="pb"><i style="width:${x[1]/tot*100}%"></i></div></div>`).join('');
+const L=[['Queimou','Espeto de carne',6,16.62],['Brinde','Espeto de carne',4,11.08],['Sobra descartada','Frango',5,11],['Quebrou','Cerveja long neck',2,10.8],['Caiu','Queijo coalho',3,8.55]];
+const LT=L.reduce((a,x)=>a+x[3],0);
+const V={
+agora(){const mx=Math.max(...H);return`
+<div class="c"><div class="l">Vendas hoje</div><div class="hero">${R(S)}</div>
+<div class="pb"><i style="width:${Math.min(100,S/META*100)}%"></i></div><div class="l">${P(S/META*100)} da meta de ${R(META)}</div></div>
+<div class="g"><div class="c"><div class="l">Comandas abertas</div><div class="n">14</div></div><div class="c"><div class="l">Ticket médio</div><div class="n">${R(S/69)}</div></div></div>
+<div class="c"><h2>Vendas por hora</h2><div class="ch">${H.map((h,k)=>`<div><i style="height:${h/mx*90}px"></i>${HL[k]}</div>`).join('')}</div></div>
+<div class="c"><h2>Comandas abertas (maiores)</h2>${[['Mesa 12','2h05',212],['Mesa 5','1h48',187],['Mesa 3','1h40',148],['Mesa 7','0h52',96],['Mesa 9','0h31',73],['Balcão','0h12',54]].map(x=>`<div class="r"><span>${x[0]} <span class="l">${x[1]} aberta</span></span><b>${R(x[2])}</b></div>`).join('')}</div>
+<div class="c"><h2>Formas de pagamento</h2>${bars([['Pix',1980],['Cartão',1590],['Dinheiro',710]],S,R)}</div>`},
+gestao(){const lo=[...F].sort((a,b)=>a.m-b.m)[0];return`
+<div class="g"><div class="c"><div class="l">Margem bruta</div><div class="n">${P(MG)}</div></div><div class="c"><div class="l">Custo da mercadoria</div><div class="n">${P(100-MG)}</div></div>
+<div class="c"><div class="l">Lucro estimado hoje</div><div class="n">${R(S*MG/100-FIX)}</div></div><div class="c"><div class="l">Contra sexta passada</div><div class="n" style="color:var(--ok)">${hide?'••%':'+12%'}</div></div></div>
+${metas()}<div class="c"><h2>Ponto de equilíbrio</h2><div class="pb"><i style="width:${Math.min(100,S/BE*100)}%"></i></div><div class="l">Custos fixos da noite: ${R(FIX)}. Você precisa vender ${R(BE)} para empatar${S>=BE?' e já passou disso.':'.'}</div></div>
+<div class="tip"><b>Oportunidade:</b> ${lo.n} vende ${lo.q} unidades, mas deixa só ${P(lo.m)} de margem. Subir R$ 1,00 no preço aumenta o lucro da noite em ${R(lo.q)}.</div>
+<div class="c"><h2>Produtos mais vendidos</h2><div class="w">${[...F].sort((a,b)=>b.p*b.q-a.p*a.q).map(f=>`<div class="r"><span>${f.n}<br><span class="l">${f.q} un. · ${R(f.p*f.q)}</span></span>${tg(f.m)}</div>`).join('')}</div></div>`},
+fichas(){return`<div class="c"><h2>Fichas técnicas</h2><div class="l" style="margin-bottom:6px">Toque em um produto para ver o custo de cada ingrediente.</div>${F.map(f=>`<details><summary><span>${f.n}</span>${tg(f.m)}</summary>${f.i.map(x=>`<div class="r"><span class="l">${x[0]}</span><span>${R(x[1])}</span></div>`).join('')}<div class="r"><b>Custo total</b><b>${R(f.c)}</b></div><div class="r"><span>Preço de venda</span><b>${R(f.p)}</b></div><div class="r"><span>Lucro por unidade</span><b style="color:var(--ok)">${R(f.p-f.c)}</b></div></details>`).join('')}</div>`},
+perdas(){const g={};L.forEach(x=>g[x[0]]=(g[x[0]]||0)+x[3]);return`
+<div class="g"><div class="c"><div class="l">Perdido hoje</div><div class="n">${R(LT)}</div></div><div class="c"><div class="l">Sobre as vendas</div><div class="n">${hide?'••%':(LT/S*100).toFixed(1).replace('.',',')+'%'}</div></div></div>
+<div class="tip"><b>Atenção:</b> quase 3 de cada 10 reais perdidos vêm de carne queimada. Vale ajustar o turno da churrasqueira.</div>
+<div class="c"><h2>Perdas por motivo</h2>${bars(Object.entries(g).sort((a,b)=>b[1]-a[1]),LT,R)}</div>
+<div class="c"><h2>Registros da noite</h2>${L.map(x=>`<div class="r"><span>${x[1]} <span class="l">${x[2]} un. · ${x[0]}</span></span><b>${R(x[3])}</b></div>`).join('')}</div>`},
+alertas(){const A=[['bd','Cancelamento','Mesa 5: item de R$ 48,00 cancelado às 21h41 pelo caixa Carlos.'],['bd','Desconto','Mesa 12: desconto de 30%, o limite é 10%.'],['wn','Estoque','Cerveja long neck: 38 unidades, o mínimo é 60.'],['wn','Estoque','Carvão deve acabar antes do fim da noite.'],['ok','Caixa','Fechamento de ontem conferido, sem diferença.']];
+return`<div class="c"><h2>Alertas da noite</h2>${A.map(a=>`<div class="r"><span><b>${a[1]}</b><br><span class="l">${a[2]}</span></span><span class="tg ${a[0]}">${{bd:'urgente',wn:'atenção',ok:'ok'}[a[0]]}</span></div>`).join('')}</div>`}};
+const T=[['agora','Agora'],['gestao','Gestão'],['equipe','Equipe'],['estoque','Estoque'],['fichas','Fichas técnicas'],['precos','Preços'],['perdas','Desperdícios'],['contas','Contas'],['bares','Bares'],['zap','WhatsApp'],['alertas','Alertas']];
+const ic=o=>`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>${o?'<circle cx="12" cy="12" r="3"/>':'<path d="M3 3l18 18"/>'}</svg>`,EO=ic(1),EC=ic(0);
+const tm=p=>`<span class="tg ${p>=100?'ok':p>=80?'wn':'bd'}">${P(p)}</span>`;
+const MT=[['Quarta',2500,2100],['Quinta',3000,3200],['Sexta (hoje)',META,null],['Sábado',7000,6400],['Domingo',4500,4700]];
+const metas=()=>`<div class="c"><h2>Meta por dia da semana</h2>${MT.map(m=>`<div class="r"><span>${m[0]}<br><span class="l">Meta ${R(m[1])}${m[2]!=null?' · semana passada '+R(m[2]):''}</span></span>${tm(m[2]==null?S/m[1]*100:m[2]/m[1]*100)}</div>`).join('')}</div>`;
+const E=[['Rafa',1480,22,0],['Bia',1320,19,1],['Carlos',890,15,3],['Duda',590,13,0]],ES=[['Cerveja long neck',38,'un.',16,'caixas de 24'],['Carne bovina',6.5,'kg',12,'kg'],['Frango',8,'kg',4,'kg'],['Queijo coalho',4,'kg',3,'kg'],['Carvão',1,'saco',3,'sacos']];
+Object.assign(V,{
+equipe(){return`<div class="tip"><b>Leitura:</b> Carlos teve 3 cancelamentos na noite. Vale entender o motivo antes de tirar conclusões.</div><div class="c"><h2>Vendas por garçom</h2>${bars(E.map(e=>[e[0],e[1]]),1480,R)}</div><div class="c"><h2>Ticket médio e cancelamentos</h2>${E.map(e=>`<div class="r"><span>${e[0]}<br><span class="l">${e[2]} comandas · ticket ${R(e[1]/e[2])}</span></span><span class="tg ${e[3]>1?'bd':e[3]?'wn':'ok'}">${e[3]} cancel.</span></div>`).join('')}</div>`},
+estoque(){return`<div class="tip"><b>Previsão do fim de semana:</b> a sugestão usa as vendas das últimas semanas nos mesmos dias.</div><div class="c"><h2>O que comprar</h2>${ES.map(e=>`<div class="r"><span>${e[0]}<br><span class="l">Em estoque: ${e[1]} ${e[2]}</span></span><b>Comprar ${e[3]} ${e[4]}</b></div>`).join('')}</div>`},
+precos(){return`<div class="c"><h2>Simulador de preço</h2><div class="l">Escolha o produto e quanto quer aumentar.</div><select id="si" onchange="sm()">${F.map((f,i)=>`<option value="${i}"${i==3?' selected':''}>${f.n}</option>`).join('')}</select><div style="margin:10px 0 4px">Aumento: <b id="sd">R$ 1,00</b></div><input type="range" id="sg" min="0" max="3" step="0.5" value="1" oninput="sm()" style="width:100%"><div id="sr"></div></div><div class="l">Premissa de exemplo: cada 10% de aumento reduz 8% das vendas. Na versão real, usamos o histórico do bar.</div>`},
+contas(){const f=[['Seu João',184,12],['Marcos',96,5],['Dona Lúcia',62,21]],a=[['Distribuidora de bebidas',1850,1],['Açougue',920,3],['Aluguel',2400,6],['Energia',480,9]],s=x=>x.reduce((t,y)=>t+y[1],0);return`<div class="g"><div class="c"><div class="l">Fiado a receber</div><div class="n">${R(s(f))}</div></div><div class="c"><div class="l">A pagar em 10 dias</div><div class="n">${R(s(a))}</div></div></div><div class="c"><h2>Fiado</h2>${f.map(x=>`<div class="r"><span>${x[0]}<br><span class="l">há ${x[2]} dias</span></span><span><b>${R(x[1])}</b> <span class="tg ${x[2]>14?'bd':x[2]>7?'wn':'ok'}">${x[2]>14?'cobrar':x[2]>7?'atenção':'em dia'}</span></span></div>`).join('')}</div><div class="c"><h2>Contas a pagar</h2>${a.map(x=>`<div class="r"><span>${x[0]}<br><span class="l">${R(x[1])}</span></span><span class="tg ${x[2]<=1?'bd':x[2]<=3?'wn':'ok'}">${x[2]<=1?'vence amanhã':'em '+x[2]+' dias'}</span></div>`).join('')}</div>`},
+bares(){const B=[['Cuida Bar Centro',S,MG,LT/S*100],['Cuida Bar Orla',5120,51,2.8],['Cuida Bar Sul',2960,59,.9]];return`<div class="tip"><b>Oportunidade:</b> a unidade Orla vende mais, mas tem a menor margem e a maior perda. Vale olhar compras e desperdício lá.</div><div class="c"><h2>Vendas de hoje por unidade</h2>${bars(B.map(b=>[b[0],b[1]]),5120,R)}</div><div class="c"><h2>Margem e perdas</h2>${B.map(b=>`<div class="r"><span>${b[0]}<br><span class="l">Perdas: ${hide?'••%':b[3].toFixed(1).replace('.',',')+'%'}</span></span>${tg(b[2])}</div>`).join('')}</div><div class="l">Unidades de exemplo.</div>`},
+zap(){return`<div class="l" style="margin-bottom:8px">Todo dia, às 2h, o dono recebe esta mensagem no WhatsApp.</div><div class="c" style="background:var(--as);white-space:pre-line;border-radius:12px 12px 12px 2px">🔔 <b>Resumo da noite – Cuida Bar</b>
+Vendas: <b>${R(S)}</b> (${hide?'••%':'+12%'} contra a sexta passada)
+Lucro estimado: <b>${R(S*MG/100-FIX)}</b>
+Perdas: <b>${R(LT)}</b>
+⚠️ 2 alertas: desconto fora do limite e cerveja abaixo do mínimo.
+💡 Cerveja long neck tem a menor margem. Subir R$ 1,00 gera ${R(F[3].q)} a mais por noite.</div>`}});
+function sm(){const f=F[document.getElementById('si').value],d=+document.getElementById('sg').value,q=f.q*(1-.8*d/f.p),a=(f.p-f.c)*f.q,b=(f.p+d-f.c)*q;document.getElementById('sd').textContent='R$ '+d.toFixed(2).replace('.',',');document.getElementById('sr').innerHTML=`<div class="r"><span>Lucro da noite hoje</span><b>${R(a)}</b></div><div class="r"><span>Lucro da noite com o novo preço</span><b>${R(b)}</b></div><div class="r"><span>Diferença por mês (8 noites)</span><b style="color:var(--ok)">${R((b-a)*8)}</b></div>`}
+let cur='agora';
+function show(){document.getElementById('nv').innerHTML=T.map(t=>`<button role="tab" aria-selected="${t[0]==cur}" onclick="cur='${t[0]}';show();scrollTo(0,0)">${t[1]}</button>`).join('');
+document.getElementById('v').innerHTML=`<div class="demo">Demonstração com dados fictícios. Toque no olho, no canto superior, para mostrar ou ocultar os valores.</div>`+V[cur]()+`<div class="ft">Painel de gestão para bares</div>`;document.body.classList.toggle('hid',hide);document.getElementById('ey').innerHTML=hide?EC:EO;if(cur=='precos')sm()}
+show();
+setInterval(()=>{const a=20+Math.floor(Math.random()*70);S+=a;H[6]+=a;if(cur=='agora'||cur=='gestao'){const y=scrollY;show();scrollTo(0,y)}},6000);
+</script></body></html>
